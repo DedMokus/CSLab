@@ -61,14 +61,24 @@ namespace C_Lab
             return str;
         }
 
+        public string ToString()
+        {
+            string str = string.Concat(this.Name, " ", this.Fam, " ", this.Date.ToString());
+            return str;
+        }
+
         public string ToShortString(Person p)
         {
             string str = string.Concat(p.Name, " ", p.Fam);
             return str;
         }
 
+        public string ToShortString()
+        {
+            string str = string.Concat(this.Name, " ", this.Fam);
+            return str;
+        }
 
 
-        
     }
 }

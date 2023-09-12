@@ -1,67 +1,35 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-public class Person
+using C_Lab;
+
+class Program
 {
-    string Name;
-    string Fam;
-    System.DateTime Date = new System.DateTime();
-
-    Person(string name, string fam, DateTime date)
+    static void Main(string[] args)
     {
-        Name = name;
-        Fam = fam;
-        Date = date;
+        Student One = new();
+        Console.WriteLine(One.ToShortString());
+        Console.WriteLine("Specialist " + (int)Education.Specialist);
+        Console.WriteLine("Bachelor " + (int)Education.Bachelor);
+        Console.WriteLine("SecondEduation " + (int)Education.SecondEducation);
+
+        One.stud = (new Person("Dima","Maletin",DateTime.Now));
+        One.ed = Education.Specialist;
+        One.group = 22;
+
+        Exam[] ex = new Exam[0];
+        ex[0] = new Exam("Math", 5, new DateTime(2023, 1, 12));
+        One.exams = ex;
+
+        Console.WriteLine(One.ToString());
+
+        Exam[] exs = new Exam[5];
+        exs[0] = new Exam("Math", 5, new DateTime(2023, 1, 12));
+        exs[1] = new Exam("Physics", 4, new DateTime(2023, 1, 15));
+        exs[2] = new Exam("PE", 5, new DateTime(2023, 1, 18));
+        exs[3] = new Exam("Art", 3, new DateTime(2023, 1, 21));
+        exs[4] = new Exam("Philosophy", 4, new DateTime(2023, 1, 27));
+
+        One.AddExams(exs);
     }
-
-    Person()
-    {
-        Name = "Undefined";
-        Fam = "Undefined";
-        Date = new System.DateTime();
-    }
-
-    public string name
-    {
-        get { return Name; }
-        set { Name = value; }
-    }
-
-    public string fam
-    {
-        get { return Fam; }
-        set { Fam = value; }
-    }
-
-    public DateTime date
-    {
-        get { return Date; }
-        set { Date = value; }
-    }
-
-    public int[] dateint
-    {
-        get
-        {
-            int[] datereturn = { Date.Day, Date.Month, Date.Year };
-            return datereturn;
-        }
-        set { Date = new System.DateTime(value[0], value[1], value[2]); }
-    }
-
-    public string ToString(Person p)
-    {
-        string str = string.Concat(p.Name, " ",p.Fam, " ",p.Date);
-        return str;
-    }
-
-    public string ToShortString(Person p) 
-    {
-        string str = string.Concat(p.Name, " ", p.Fam);
-        return str;
-    }
-
-
-
 }
-
 

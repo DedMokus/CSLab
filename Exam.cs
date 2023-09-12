@@ -12,14 +12,14 @@ namespace C_Lab
         public int Mark { get; set; }
         public System.DateTime Date { get; set; }
 
-        Exam(string subject, int mark, DateTime date)
+        public Exam(string subject, int mark, DateTime date)
         {
             Subject = subject;
             Mark = mark;
             Date = date;
         }
 
-        Exam()
+        public Exam()
         {
             Subject = "Undefined";
             Mark = 0;

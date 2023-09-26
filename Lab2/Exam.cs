@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace C_Lab
 {
-    internal class Exam
+    internal class Exam:IDateAndCopy
     {
         public string Subject { get; set; }
         public int Mark { get; set; }
@@ -32,6 +32,13 @@ namespace C_Lab
             return str;
         }
 
+        public Exam DeepCopy(Exam p)
+        {
+            string newSubject = p.Subject;
+            int newMark = p.Mark;
+            System.DateTime newDate = p.Date;
+            return new Exam(newSubject, newMark, newDate);
+        }
 
     }
 }

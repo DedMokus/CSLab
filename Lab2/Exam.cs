@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace C_Lab
 {
@@ -32,12 +34,10 @@ namespace C_Lab
             return str;
         }
 
-        public Exam DeepCopy(Exam p)
+        public object DeepCopy()
         {
-            string newSubject = p.Subject;
-            int newMark = p.Mark;
-            System.DateTime newDate = p.Date;
-            return new Exam(newSubject, newMark, newDate);
+            Exam copy = new Exam(Subject, Mark, Date);
+            return copy;
         }
 
     }

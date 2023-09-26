@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace C_Lab
         Bachelor,
         SecondEducation
     }
-    internal class Student : Person
+    internal class Student : Person, IDateAndCopy
     {
         private Education education;
         private int Group;
@@ -140,6 +141,12 @@ namespace C_Lab
                 Exams.Add(item);
             }
         }
+
+        public void AddExams(params Exam[] param)
+        {
+            this.Exams.AddRange(param);
+        }
+
         public void AddTests(System.Collections.ArrayList param)
         {
             foreach (var item in param)
@@ -173,12 +180,42 @@ namespace C_Lab
             return str;
         }
 
-        public Student DeepCopy(Student p)
+        public object DeepCopy()
         {
-            Person newperson = new Person(p.stud);
-            Education newEducation = p.ed;
-            int newgroup = p.group;
-            return new Student(newperson, newEducation, newgroup);
+            Person newperson = (Person)stud.DeepCopy();
+            ArrayList examsCopy = new ArrayList();
+            foreach (Exam exam in exams)
+            {
+                examsCopy.Add((Exam)exam.DeepCopy());
+            }
+            Student copy = new Student(newperson, education, Group);
+            copy.Exams = examsCopy;
+            return copy;
+        }
+
+        public IEnumerator<object> GetEnumerator()
+        { 
+            foreach(Exam item in this.Exams)
+            {
+                yield return item;
+            }
+            foreach(Test item in this.Tests)
+            {
+                yield return item;
+            }
+        }
+
+        public IEnumerable GetEnumeratorParam(int grade)
+        {
+            foreach (Exam item in this.Exams)
+            {
+                if (item.Mark>grade)
+                {
+                    yield return item;
+                }
+                
+            }
+            
         }
     }
 }

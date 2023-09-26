@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 interface IDateAndCopy
 {
-    object DeepCopy(object p);
+    object DeepCopy();
    
 
     System.DateTime Date { get; set; }

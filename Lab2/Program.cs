@@ -6,30 +6,49 @@ class Program
 {
     static void Main(string[] args)
     {
-        Student One = new();
-        Console.WriteLine(One.ToShortString());
-        Console.WriteLine("Specialist " + (int)Education.Specialist);
-        Console.WriteLine("Bachelor " + (int)Education.Bachelor);
-        Console.WriteLine("SecondEduation " + (int)Education.SecondEducation);
+        Person person1 = new Person("Misha", "Radaev", new DateTime(2023, 9, 13));
+        Person person2 = new Person("Misha", "Radaev", new DateTime(2023, 9, 13));
 
-        One.stud = (new Person("Dima","Maletin",DateTime.Now));
-        One.ed = Education.Specialist;
-        One.group = 22;
+        Console.WriteLine(person1 == person2);
+        Console.WriteLine("Хэш-код для объекта 1: {0}", person1.GetHashCode());
+        Console.WriteLine("Хэш-код для объекта 2: {0}\n", person2.GetHashCode());
 
-        Exam[] ex = new Exam[0];
-        ex[0] = new Exam("Math", 5, new DateTime(2023, 1, 12));
-        One.exams = ex;
+        Student student1 = new Student(person1, Education.Bachelor, 24);
+        student1.AddExams(new Exam("Math", 5, new DateTime(2023, 9, 14)), new Exam("Physics", 4, new DateTime(2023, 6, 27)), new Exam("Chemistry", 3, new DateTime(2023, 6, 28)));
+        Console.WriteLine(student1.ToString());
+        Console.WriteLine("\n");
 
-        Console.WriteLine(One.ToString());
+        Console.WriteLine(student1.stud.ToString());
 
-        Exam[] exs = new Exam[5];
-        exs[0] = new Exam("Math", 5, new DateTime(2023, 1, 12));
-        exs[1] = new Exam("Physics", 4, new DateTime(2023, 1, 15));
-        exs[2] = new Exam("PE", 5, new DateTime(2023, 1, 18));
-        exs[3] = new Exam("Art", 3, new DateTime(2023, 1, 21));
-        exs[4] = new Exam("Philosophy", 4, new DateTime(2023, 1, 27));
+        IDateAndCopy stud2 = new Student(person1,Education.Bachelor, 24);
+        Student copyst2 = (Student)stud2.DeepCopy();
 
-        One.AddExams(exs);
+        copyst2.name = "Dima";
+        Console.WriteLine(copyst2.name);
+        Console.WriteLine("Copy of Student: " + copyst2.ToString());
+        Console.WriteLine("Original Student: " + stud2.ToString());
+        Console.WriteLine(stud2.GetHashCode());
+        Console.WriteLine(copyst2.GetHashCode());
+
+
+        try
+        {
+            student1.group = 99;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+
+        }
+
+        foreach (var Ex in student1)
+        {
+            Console.WriteLine(Ex.ToString());
+        }
+        foreach (var Ex in student1.GetEnumeratorParam(4))
+        {
+            Console.WriteLine(Ex.ToString());
+        }
     }
 }
 

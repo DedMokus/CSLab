@@ -101,12 +101,9 @@ namespace C_Lab
             return Hash;
         }
 
-        public Person DeepCopy(Person p)
+        public object DeepCopy()
         {
-            string newname = p.Name;
-            string newfam = p.Fam;
-            System.DateTime newdate = p.Date;
-            return new Person(newname, newfam, newdate);
+            return new Person(Name, Fam, Date);
         }
 
 

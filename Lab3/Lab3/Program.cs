@@ -1,14 +1,80 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Lab3;
+using System;
+using System.Collections.Generic;
 
 class Program
 {
+
+    private static Random random = new Random();
+
     private static void writeWithColor(string _message, ConsoleColor _color = ConsoleColor.Green)
     {
         Console.ForegroundColor = _color;
         Console.WriteLine(_message);
         Console.ForegroundColor = ConsoleColor.White;
+    }
+
+    private static string RandomString(int _length)
+    {
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        return new string(Enumerable.Repeat(chars, _length).Select(s => s[random.Next(s.Length)]).ToArray());
+    }
+
+
+
+    private static DateTime RandomDate()
+    {
+        return new DateTime(random.Next(2023), random.Next(1, 12), random.Next(1, 28));
+    }
+
+
+    private static Education RandomEducation()
+    {
+        Education[] education_types = { Education.Specialist, Education.Bachelor, Education.SecondEducation };
+        return education_types[random.Next(0, 3)];
+    }
+
+
+
+    private static Exam[] RandomExams(int _count)
+    {
+        List<Exam> exams = new List<Exam>();
+        for (int i = 0; i < _count; i++)
+        {
+            Exam exam = new Exam(RandomString(random.Next(5, 10)), random.Next(1, 5), RandomDate());
+            exams.Add(exam);
+        }
+        return exams.ToArray();
+    }
+
+
+
+    private static Person RandomPerson()
+    {
+        return new Person(RandomString(10), RandomString(7), RandomDate());
+    }
+
+
+
+    private static Student RandomStudent()
+    {
+        return new Student(RandomPerson(), RandomEducation(), random.Next(100));
+    }
+
+
+
+    private static Student[] RandomStudents(int _count)
+    {
+        List<Student> students = new List<Student>();
+        for (int i = 0; i < _count; i++)
+        {
+            Student student = RandomStudent();
+            students.Add(student);
+            student.AddExams(RandomExams(random.Next(3, 5)));
+        }
+        return students.ToArray();
     }
 
     static void Main(string[] args)
@@ -29,6 +95,31 @@ class Program
         student.sortExamsByDate();
         writeWithColor($"Student after sorting by date:\n\n");
         Console.WriteLine(student);
+
+
+        StudentCollection<string> studen_collection = new StudentCollection<string>(student => RandomString(student.fam.Length));
+        studen_collection.AddStudents(RandomStudents(5));
+        Console.WriteLine(studen_collection);
+
+        writeWithColor($"MaxAverageMark = {studen_collection.MaxAverageMark}\n");
+        writeWithColor($"EducationForm:\n");
+        foreach (var stud in studen_collection.EducationForm(Education.Specialist))
+        {
+            Console.WriteLine(stud.Value);
+        }
+        writeWithColor($"GroupByEducation:\n");
+        foreach (var group in studen_collection.GroupByEducation)
+        {
+            foreach (var stud in group)
+            {
+                Console.WriteLine(stud.Value);
+            }
+        }
+
+        GenerateElement<Person, Student> generator = index => new KeyValuePair<Person, Student>(RandomPerson(), RandomStudent());
+        TestCollections<Person, Student> test_collections = new TestCollections<Person, Student>(10, generator);
+
+        test_collections.RunAllTests();
 
     }
 }

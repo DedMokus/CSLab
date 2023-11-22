@@ -44,7 +44,7 @@ namespace Lab3
             for(int i = 0; i < students_count; i++)
             {
                 Student student = new Student();
-                students.Add(keySelector(student), student);
+                students.Add(_keySelector(student), student);
             }
         }
 
@@ -52,7 +52,7 @@ namespace Lab3
         {
             foreach(Student student in _students)
             {
-                students.Add(keySelector(student), student);
+                students.Add(_keySelector(student), student);
             }
         }
 

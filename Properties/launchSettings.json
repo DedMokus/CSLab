@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "C#Lab": {
+      "commandName": "Project"
+    },
+    "Lab4": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\leban\\source\\repos\\DedMokus\\CSLab\\Lab4\\Lab4"
+    }
+  }
+}

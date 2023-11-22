@@ -1,11 +1,11 @@
-using C_Lab;
+using Lab4;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab2
+namespace Lab4
 {
     interface IDateAndCopy
     {
